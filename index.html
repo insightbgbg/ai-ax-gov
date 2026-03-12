@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>임철현 | P-JOBSCAN AX 공공기관 거버넌스 아키텍트</title>
+    <meta name="description" content="임철현 | 한국공공기관연구원 AX센터장. 공공기관 AI/AX 거버넌스 진단·평가 프레임워크와 P-JOBSCAN을 소개합니다.">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* CSS 변수 설정 */
+        :root {
+            --primary-color: #0f2027; /* 다크 네이비 */
+            --secondary-color: #203a43;
+            --accent-color: #2c5364;
+            --highlight-color: #3b82f6; /* 신뢰의 블루 */
+            --text-main: #333333;
+            --text-light: #666666;
+            --bg-light: #f8fafc;
+        }
+
+        /* 기본 초기화 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Noto Sans KR', sans-serif;
+            scroll-behavior: smooth;
+        }
+        body {
+            color: var(--text-main);
+            line-height: 1.6;
+            background-color: #ffffff;
+        }
+        a { text-decoration: none; color: inherit; }
+
+        /* 공통 섹션 스타일 */
+        section {
+            padding: 100px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .section-title {
+            font-size: 2.2rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 60px;
+            color: var(--primary-color);
+            letter-spacing: -0.02em;
+        }
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 4px;
+            background-color: var(--highlight-color);
+            margin: 15px auto 0;
+        }
+
+        /* 1. Hero 섹션 */
+        #hero {
+            max-width: 100%;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: linear-gradient(rgba(15, 32, 39, 0.85), rgba(32, 58, 67, 0.85)), url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2072&auto=format&fit=crop') no-repeat center center/cover;
+            color: white;
+            padding: 0 20px;
+        }
+        .eyebrow {
+            display: inline-block;
+            padding: 8px 16px;
+            border-radius: 20px;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 20px;
+            animation: fadeInUp 1s ease-out;
+        }
+        .hero-title {
+            font-size: 3.2rem;
+            font-weight: 900;
+            line-height: 1.3;
+            margin-bottom: 25px;
+            word-break: keep-all;
+            letter-spacing: -0.03em;
+            animation: fadeInUp 1s ease-out 0.2s backwards;
+        }
+        .hero-subtitle {
+            font-size: 1.25rem;
+            font-weight: 300;
+            color: #d4deef;
+            max-width: 760px;
+            margin-bottom: 40px;
+            line-height: 1.7;
+            word-break: keep-all;
+            animation: fadeInUp 1s ease-out 0.4s backwards;
+        }
+        .hero-btn {
+            padding: 16px 40px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            background-color: var(--highlight-color);
+            color: white;
+            border-radius: 30px;
+            transition: all 0.3s ease;
+            animation: fadeInUp 1s ease-out 0.6s backwards;
+            box-shadow: 0 10px 20px rgba(59, 130, 246, 0.3);
+        }
+        .hero-btn:hover {
+            background-color: #2563eb;
+            transform: translateY(-3px);
+            box-shadow: 0 15px 25px rgba(59, 130, 246, 0.4);
+        }
+
+        /* 2. Profile 섹션 */
+        .profile-container {
+            display: flex;
+            gap: 60px;
+            align-items: flex-start;
+        }
+        .profile-image {
+            flex: 1;
+            text-align: center;
+            position: sticky;
+            top: 100px;
+        }
+        .profile-image img {
+            width: 100%;
+            max-width: 350px;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        .profile-content {
+            flex: 1.5;
+        }
+        .profile-name {
+            font-size: 2.2rem;
+            font-weight: 800;
+            margin-bottom: 5px;
+            color: var(--primary-color);
+            letter-spacing: -0.02em;
+        }
+        .profile-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--highlight-color);
+            margin-bottom: 15px;
+        }
+        /* 추가된 정체성 뱃지 스타일 */
+        .profile-identity {
+            display: inline-block;
+            background: rgba(59, 130, 246, 0.08);
+            color: var(--highlight-color);
+            padding: 10px 18px;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 1.05rem;
+            margin-bottom: 35px;
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            letter-spacing: -0.01em;
+        }
+        
+        .track-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .profile-list {
+            list-style: none;
+            margin-bottom: 35px;
+            padding-left: 0;
+            border-left: 3px solid var(--highlight-color);
+            padding-left: 20px;
+        }
+        .profile-list li {
+            font-size: 1.05rem;
+            margin-bottom: 12px;
+            color: var(--text-main);
+            position: relative;
+        }
+        .profile-desc {
+            font-size: 1.1rem;
+            color: var(--text-light);
+            line-height: 1.8;
+            word-break: keep-all;
+            background: var(--bg-light);
+            padding: 25px;
+            border-radius: 12px;
+            border: 1px solid #e2e8f0;
+        }
+
+        /* 3. Portfolio 섹션 */
+        #portfolio {
+            background-color: var(--bg-light);
+            max-width: 100%;
+        }
+        .portfolio-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+            padding: 0 20px;
+        }
+        .card {
+            background: white;
+            border-radius: 20px;
+            padding: 45px 35px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+            position: relative;
+            border-top: 4px solid transparent;
+            display: flex;
+            flex-direction: column;
+        }
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            border-top: 4px solid var(--highlight-color);
+        }
+        .card-icon {
+            font-size: 2.8rem;
+            color: var(--highlight-color);
+            margin-bottom: 25px;
+        }
+        .card-eyebrow {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--accent-color);
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+        .card-title {
+            font-size: 1.6rem;
+            font-weight: 800;
+            margin-bottom: 15px;
+            color: var(--primary-color);
+            letter-spacing: -0.02em;
+        }
+        .card-desc {
+            font-size: 1rem;
+            color: var(--text-light);
+            margin-bottom: 30px;
+            line-height: 1.7;
+            flex-grow: 1; /* 링크 버튼 하단 정렬을 위함 */
+        }
+        .card-desc p {
+            margin-bottom: 15px;
+            word-break: keep-all;
+        }
+        /* 추가된 카드 내 리스트 스타일 */
+        .card-desc ul {
+            list-style: none;
+            padding-left: 0;
+            margin: 0;
+        }
+        .card-desc ul li {
+            position: relative;
+            padding-left: 14px;
+            margin-bottom: 8px;
+            font-size: 0.95rem;
+            color: var(--text-main);
+            word-break: keep-all;
+        }
+        .card-desc ul li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: var(--highlight-color);
+            font-weight: bold;
+        }
+        
+        .card-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 600;
+            color: var(--highlight-color);
+            border: 1px solid var(--highlight-color);
+            padding: 10px 24px;
+            border-radius: 30px;
+            transition: all 0.2s;
+            align-self: flex-start;
+        }
+        .card-link:hover {
+            background-color: var(--highlight-color);
+            color: white;
+        }
+
+        /* 4. Contact 섹션 */
+        #contact {
+            text-align: center;
+        }
+        .contact-box {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 40px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            border: 1px solid #e2e8f0;
+        }
+        .contact-desc {
+            color: var(--text-light);
+            margin-bottom: 30px;
+            font-size: 1.1rem;
+        }
+        .contact-email-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: var(--bg-light);
+            padding: 15px 25px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            border: 1px solid #e2e8f0;
+            transition: all 0.3s ease;
+        }
+        .contact-email-wrapper:hover {
+            border-color: var(--highlight-color);
+        }
+        .email-text {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+        .copy-btn {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: 0.2s;
+        }
+        .copy-btn:hover {
+            background: var(--highlight-color);
+        }
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+        .social-btn {
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            background-color: var(--bg-light);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.4rem;
+            color: var(--secondary-color);
+            transition: all 0.3s;
+            border: 1px solid #e2e8f0;
+        }
+        .social-btn:hover {
+            background-color: var(--highlight-color);
+            color: white;
+            border-color: var(--highlight-color);
+            transform: translateY(-3px);
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--primary-color);
+            color: #94a3b8;
+            text-align: center;
+            padding: 40px 20px;
+            font-size: 0.95rem;
+        }
+
+        /* 애니메이션 */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* 모바일 반응형 */
+        @media (max-width: 768px) {
+            .hero-title { font-size: 2.2rem; }
+            .hero-subtitle { font-size: 1.1rem; }
+            .profile-container { flex-direction: column; }
+            .profile-image { position: relative; top: 0; }
+            .contact-email-wrapper { flex-direction: column; gap: 15px; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <section id="hero">
+        <span class="eyebrow">한국공공기관연구원 AX센터장</span>
+        <h1 class="hero-title">공공기관 AI/AX 거버넌스,<br>진단 가능한 프레임워크로 설계합니다.</h1>
+        <p class="hero-subtitle">공공기관의 직무·조직관리 진단 경험을 기반으로, AI 도입·활용·통제·수용의 전 과정을 진단 가능한 프레임워크로 연결하여 공공부문의 AX 거버넌스 고도화를 추진합니다.</p>
+        <a href="#portfolio" class="hero-btn">진단 프레임워크 살펴보기</a>
+    </section>
+
+    <section id="profile" class="fade-in">
+        <h2 class="section-title">Architect Profile</h2>
+        <div class="profile-container">
+            <div class="profile-image">
+                <img src="profile.jpg" alt="임철현 AX센터장">
+            </div>
+            <div class="profile-content">
+                <h3 class="profile-name">임철현</h3>
+                <p class="profile-title">한국공공기관연구원 AX센터장 / 파트너</p>
+                <div class="profile-identity">
+                    <i class="fa-solid fa-quote-left" style="margin-right: 8px; opacity: 0.7;"></i>현장성과 학술 가능성을 함께 갖춘 공공 AX 전략가
+                </div>
+
+                <div class="track-title"><i class="fa-solid fa-graduation-cap"></i> Academic Background</div>
+                <ul class="profile-list">
+                    <li>서울대학교 화학생물공학부 박사과정 수료</li>
+                    <li>서울대학교 화학공학과 석사 졸업</li>
+                    <li>서울대학교 화학공학과 학사 졸업</li>
+                </ul>
+
+                <div class="track-title"><i class="fa-solid fa-briefcase"></i> Professional Track</div>
+                <ul class="profile-list">
+                    <li>IT 커머스 기업 23년 창업·경영</li>
+                    <li>NIA(한국지능정보사회진흥원) AI 데이터 구축 프로젝트 수석 컨설턴트</li>
+                    <li>공공기관 30여 곳 인사·조직관리 수준 진단 및 평가 수행</li>
+                </ul>
+
+                <p class="profile-desc">
+                    서울대학교 공학 배경, 23년의 경영 경험, AI 프로젝트 컨설팅과 공공기관 진단 실무를 연결해 공공부문의 AI/AX 전환을 진단 가능한 구조로 설계합니다.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section id="portfolio">
+        <h2 class="section-title fade-in">Core Frameworks</h2>
+        <div class="portfolio-grid">
+            
+            <div class="card fade-in">
+                <div class="card-icon"><i class="fa-solid fa-microchip"></i></div>
+                <div class="card-eyebrow">AI/AX Governance</div>
+                <h3 class="card-title">P-JOBSCAN AX</h3>
+                <div class="card-desc">
+                    <p>공공기관의 AI 도입·활용·통제·수용 전 과정을 진단하는 공공 맞춤형 AI/AX 거버넌스 프레임워크입니다.</p>
+                    <ul>
+                        <li>AI 전략과 정책 정합성 진단</li>
+                        <li>조직 수용도·통제 체계·실행 병목 점검</li>
+                        <li>향후 공공기관 평가체계와의 연계 가능성 확보</li>
+                    </ul>
+                </div>
+                <a href="#" target="_blank" class="card-link">프레임워크 발췌본<i class="fa-solid fa-arrow-right"></i></a>
+            </div>
+
+            <div class="card fade-in" style="transition-delay: 0.1s;">
+                <div class="card-icon"><i class="fa-solid fa-chart-pie"></i></div>
+                <div class="card-eyebrow">HR/Organization Tool</div>
+                <h3 class="card-title">P-JOBSCAN</h3>
+                <div class="card-desc">
+                    <p>공공기관 직무중심 인사·조직관리 수준을 구조적으로 진단하고 개선 방향을 도출하는 진단 프레임워크입니다.</p>
+                    <ul>
+                        <li>30여 개 공공기관 적용·진단 경험</li>
+                        <li>AI·프로그래밍·데이터 분석 기반 보고 체계</li>
+                        <li>학회 발표 및 공공기관 컨퍼런스 연계 경험</li>
+                    </ul>
+                </div>
+                <a href="#" target="_blank" class="card-link">학회 발표문 발췌본<i class="fa-solid fa-arrow-right"></i></a>
+            </div>
+
+            <div class="card fade-in" style="transition-delay: 0.2s;">
+                <div class="card-icon"><i class="fa-solid fa-sitemap"></i></div>
+                <div class="card-eyebrow">Diagnostic Core</div>
+                <h3 class="card-title">Methodology</h3>
+                <div class="card-desc">
+                    <p>자가진단의 한계를 줄이고 데이터 무결성과 논리적 정합성을 함께 검토하는 범용 진단 방법론입니다.</p>
+                    <ul>
+                        <li>항목 설계부터 결과 해석까지 구조화</li>
+                        <li>기관별 맥락과 운영 특성 반영</li>
+                        <li>진단, 교육, 자문, 연구로 확장 가능한 방식</li>
+                    </ul>
+                </div>
+                <a href="#" target="_blank" class="card-link">방법론 도식화<i class="fa-solid fa-arrow-right"></i></a>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="fade-in">
+        <h2 class="section-title">Contact & Network</h2>
+        <div class="contact-box">
+            <p class="contact-desc">공공기관 진단·평가, AI 도입 전략 수립, 파트너십 논의가 필요하시면 아래 채널로 편하게 연락해 주십시오.</p>
+            
+            <div class="contact-email-wrapper">
+                <span class="email-text">ai.ax.gov@gmail.com</span>
+                <button class="copy-btn" id="copyBtn" onclick="copyEmail()">이메일 복사</button>
+            </div>
+            
+            <div class="social-links">
+                <a href="https://search.naver.com/search.naver?where=nexearch&sm=tab_etc&mra=bjky&pkid=1&os=35232819&qvt=0&query=%EC%9E%84%EC%B2%A0%ED%98%84" target="_blank" class="social-btn" title="네이버 인물정보">
+                    <i class="fa-solid fa-n"></i>
+                </a>
+                <a href="#" target="_blank" class="social-btn" title="LinkedIn">
+                    <i class="fa-brands fa-linkedin-in"></i>
+                </a>
+                <a href="#" target="_blank" class="social-btn" title="Remember">
+                    <i class="fa-regular fa-address-card"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 Lim Chul-hyun. P-JOBSCAN AX & Governance Framework. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // 스크롤 Fade-in 애니메이션
+        document.addEventListener("DOMContentLoaded", function() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.15 });
+
+            const hiddenElements = document.querySelectorAll('.fade-in');
+            hiddenElements.forEach((el) => observer.observe(el));
+        });
+
+        // 이메일 클립보드 복사 기능
+        function copyEmail() {
+            const email = 'ai.ax.gov@gmail.com';
+            const copyBtn = document.getElementById('copyBtn');
+            
+            navigator.clipboard.writeText(email).then(() => {
+                const originalText = copyBtn.innerText;
+                copyBtn.innerText = '복사 완료!';
+                copyBtn.style.backgroundColor = '#2c5364';
+                
+                setTimeout(() => {
+                    copyBtn.innerText = originalText;
+                    copyBtn.style.backgroundColor = '';
+                }, 2000);
+            }).catch(err => {
+                window.prompt('아래 이메일을 복사하세요.', email);
+            });
+        }
+    </script>
+</body>
+</html>
