@@ -301,7 +301,63 @@
             color: white;
         }
 
-        /* 4. Contact 섹션 */
+
+        /* 4. Media / Press 섹션 */
+        #media {
+            max-width: 100%;
+            background: #ffffff;
+        }
+        .media-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+            padding: 0 20px;
+        }
+        .media-card {
+            background: var(--bg-light);
+            border-radius: 20px;
+            padding: 36px 32px;
+            border: 1px solid #e2e8f0;
+            transition: all 0.3s ease;
+        }
+        .media-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 18px 35px rgba(0,0,0,0.08);
+            border-color: rgba(59, 130, 246, 0.25);
+        }
+        .media-meta {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            margin-bottom: 18px;
+            font-size: 0.92rem;
+            color: var(--text-light);
+        }
+        .media-source {
+            font-weight: 700;
+            color: var(--accent-color);
+        }
+        .media-title {
+            font-size: 1.25rem;
+            font-weight: 800;
+            line-height: 1.5;
+            letter-spacing: -0.02em;
+            color: var(--primary-color);
+            margin-bottom: 14px;
+            word-break: keep-all;
+        }
+        .media-desc {
+            font-size: 0.98rem;
+            color: var(--text-light);
+            line-height: 1.75;
+            margin-bottom: 24px;
+            word-break: keep-all;
+        }
+
+        /* 5. Contact 섹션 */
         #contact {
             text-align: center;
         }
@@ -505,6 +561,32 @@
         </div>
     </section>
 
+
+    <section id="media" class="fade-in">
+        <h2 class="section-title">Media / Press</h2>
+        <div class="media-grid">
+            <div class="media-card fade-in">
+                <div class="media-meta">
+                    <span class="media-source"><i class="fa-regular fa-newspaper" style="margin-right: 6px;"></i>동아일보</span>
+                    <span>2025.05.19.</span>
+                </div>
+                <h3 class="media-title">공공기관硏, 직무 중심 통합 인사·조직관리 진단도구 개발</h3>
+                <p class="media-desc">P-JOBSCAN의 개발 배경과 공공기관 직무중심 인사·조직관리 진단 구조를 다룬 론칭 기사입니다. 공공기관 진단 프레임워크의 출발점과 정책 정합성을 보여주는 보도입니다.</p>
+                <a href="https://www.donga.com/news/article/all/20250519/131636807/1" target="_blank" class="card-link">기사 보기<i class="fa-solid fa-arrow-right"></i></a>
+            </div>
+
+            <div class="media-card fade-in" style="transition-delay: 0.1s;">
+                <div class="media-meta">
+                    <span class="media-source"><i class="fa-regular fa-newspaper" style="margin-right: 6px;"></i>한국경제</span>
+                    <span>2025.05.19.</span>
+                </div>
+                <h3 class="media-title">한국공공기관연구원, 통합 인사·조직관리 진단도구 개발</h3>
+                <p class="media-desc">P-JOBSCAN이 공공기관 인사·조직관리 진단도구로 공식 론칭된 사실을 다룬 기사입니다. 향후 P-JOBSCAN AX와 공공기관 AI/AX 거버넌스 프레임워크로 확장되는 기반 기사로 활용합니다.</p>
+                <a href="https://n.news.naver.com/mnews/article/015/0005133750?sid=101" target="_blank" class="card-link">기사 보기<i class="fa-solid fa-arrow-right"></i></a>
+            </div>
+        </div>
+    </section>
+
     <section id="contact" class="fade-in">
         <h2 class="section-title">Contact & Network</h2>
         <div class="contact-box">
@@ -519,10 +601,10 @@
                 <a href="https://search.naver.com/search.naver?where=nexearch&sm=tab_etc&mra=bjky&pkid=1&os=35232819&qvt=0&query=%EC%9E%84%EC%B2%A0%ED%98%84" target="_blank" class="social-btn" title="네이버 인물정보">
                     <i class="fa-solid fa-n"></i>
                 </a>
-                <a href="#" target="_blank" class="social-btn" title="LinkedIn">
+                <a href="https://www.linkedin.com/in/ai-ax-gov/" target="_blank" class="social-btn" title="LinkedIn">
                     <i class="fa-brands fa-linkedin-in"></i>
                 </a>
-                <a href="#" target="_blank" class="social-btn" title="Remember">
+                <a href="https://profile.rememberapp.co.kr/" target="_blank" class="social-btn" title="Remember">
                     <i class="fa-regular fa-address-card"></i>
                 </a>
             </div>
